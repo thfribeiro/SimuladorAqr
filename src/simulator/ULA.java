@@ -21,7 +21,7 @@ public class ULA {
     public int mult(Registrador r1, Registrador r2) {
         return (r1.ver() * r2.ver());
     }
-    
+
     public int div(Registrador r1, Registrador r2) {
         return (r1.ver() / r2.ver());
     }

@@ -30,15 +30,9 @@ public class Registrador {
             celula.replace(0, valor);
     }
 
-    public void store() {
-        
-    }
-        
     public Integer ver() {
         return (celula.get(0));
     }
-    
-
 
     public String getNome() {
         return nome;

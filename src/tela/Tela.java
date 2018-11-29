@@ -20,11 +20,18 @@ public class Tela extends javax.swing.JFrame {
     String in1;
     String in2;
     String in3;
+    String in4;
+    String in5;
+    String in6;
     int j, k, l;
     String[] textoSeparado;
+    boolean pipeline;
     Registrador aux1;
     Registrador aux2;
     Registrador aux3;
+    Registrador aux4;
+    Registrador aux5;
+    Registrador aux6;
 
     Memoria memoria;
     UC uc;
@@ -66,7 +73,6 @@ public class Tela extends javax.swing.JFrame {
      */
     public Tela() {
 
-        
         memoria = new Memoria();
         uc = new UC(memoria);
         $zero = new Registrador("$zero", memoria);
@@ -101,10 +107,14 @@ public class Tela extends javax.swing.JFrame {
         $sp = new Registrador("$sp", memoria);
         $fp = new Registrador("$fp", memoria);
         $ra = new Registrador("$ra", memoria);
+        pipeline = false;
 
         aux1 = new Registrador("aux1", memoria);
         aux2 = new Registrador("aux2", memoria);
         aux3 = new Registrador("aux3", memoria);
+        aux4 = new Registrador("aux4", memoria);
+        aux5 = new Registrador("aux5", memoria);
+        aux6 = new Registrador("aux6", memoria);
 
         initComponents();
 
@@ -115,7 +125,7 @@ public class Tela extends javax.swing.JFrame {
         memoria.store(4, 5);
         memoria.store(5, 2);
         memoria.store(6, 7);
-        
+
         atualizarTela();
 
     }
@@ -213,6 +223,10 @@ public class Tela extends javax.swing.JFrame {
         m6 = new javax.swing.JTextField();
         m15 = new javax.swing.JTextField();
         ac = new javax.swing.JTextField();
+        checkBox = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -413,62 +427,85 @@ public class Tela extends javax.swing.JFrame {
         ac.setEditable(false);
         ac.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
+        checkBox.setText("ATIVAR PIPELINE");
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("load nome_registrador, endMemoria\nstore store nome_registrador, endMemoria\n\nadd, sub, mult e div:\nadd reg_salvar, reg_source1, reg_source2");
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel5.setText("INSTRUÇÕES");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(jLabel2))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(Nm1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(m0, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(n2m, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(m1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(nm6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(m2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(m8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(m3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(m10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(m4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(m12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(m5, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(m14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(m6, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(91, 91, 91)
+                                    .addComponent(jLabel3))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(checkBox, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(m15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Nm1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m0, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(n2m, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nm6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(m8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(m10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(m12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m5, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(m14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m6, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(jLabel3))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(m15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ac, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -593,8 +630,8 @@ public class Tela extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -675,7 +712,6 @@ public class Tela extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(m14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(m6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -708,31 +744,39 @@ public class Tela extends javax.swing.JFrame {
                     .addComponent(jLabel54)
                     .addComponent(r27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel55)
-                    .addComponent(r11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(r11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel57)
-                    .addComponent(r28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel61)
-                    .addComponent(r12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel58)
-                    .addComponent(r29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel59)
-                    .addComponent(r13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel60)
-                    .addComponent(r30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel64)
-                    .addComponent(r14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel62)
-                    .addComponent(r31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel63)
-                    .addComponent(r15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel57)
+                            .addComponent(r28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel61)
+                            .addComponent(r12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel58)
+                            .addComponent(r29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel59)
+                            .addComponent(r13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel60)
+                            .addComponent(r30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel64)
+                            .addComponent(r14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel62)
+                            .addComponent(r31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel63)
+                            .addComponent(r15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -801,13 +845,30 @@ public class Tela extends javax.swing.JFrame {
                     in3 = in3.substring(0, in3.length() - 1);
                 }
             }
-            
-            
+            in4 = textoSeparado[4];
+            if (in4.contains(",")) {
+                if (in4.length() > 0) {
+                    in4 = in4.substring(0, in4.length() - 1);
+                }
+            }
+            in5 = textoSeparado[5];
+            if (in5.contains(",")) {
+                if (in5.length() > 0) {
+                    in5 = in5.substring(0, in5.length() - 1);
+                }
+            }
+            in6 = textoSeparado[6];
+            if (in6.contains(",")) {
+                if (in6.length() > 0) {
+                    in6 = in6.substring(0, in6.length() - 1);
+                }
+            }
+
         } catch (Exception e) {
 
         } finally {
-                        
-            if ( (opcode != null && in1 != null && in2 == null && in3 == null) ||(opcode != null && in1 != null && in2 != null && in3 == null)) {
+
+            if ((opcode != null && in1 != null && in2 == null && in3 == null) || (opcode != null && in1 != null && in2 != null && in3 == null)) {
                 if (in1.equals($zero.getNome())) {
                     j = 0;
                     aux1 = $zero;
@@ -1326,309 +1387,234 @@ public class Tela extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Digite uma entrada correta");
                 textoEntrada.setText("");
             }
-
-             if (opcode != null && in1 != null && in2 != null && in3 == null) {
-                uc.interpretador(opcode, aux1, Integer.parseInt(in2));
-                in1 = null;
-                in2 = null;
-            } else if (opcode != null && in1 != null && in2 != null && in3 != null) {
-                uc.interpretador(opcode, aux1, aux2, aux3);
-                in1 = null;
-                in2 = null;
-                in3 = null;
+            if (pipeline == false) {
+                if (opcode != null && in1 != null && in2 != null && in3 == null) {
+                    uc.interpretador(opcode, aux1, Integer.parseInt(in2));
+                    in1 = null;
+                    in2 = null;
+                    in3 = null;
+                } else if (opcode != null && in1 != null && in2 != null && in3 != null) {
+                    uc.interpretador(opcode, aux1, aux2, aux3);
+                    in1 = null;
+                    in2 = null;
+                    in3 = null;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma entrada correta");
+                    textoEntrada.setText("");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Digite uma entrada correta");
-                textoEntrada.setText("");
+                if (opcode != null && in1 != null && in2 != null && in3 != null && in4 != null && in5 != null && in6 == null) {
+                    uc.interpretadorPipeline(opcode, aux1, Integer.parseInt(in2), in4, aux4, Integer.parseInt(in5));
+                    in1 = null;
+                    in2 = null;
+                    in3 = null;
+                    in4 = null;
+                    in5 = null;
+                    in6 = null;
+                } else if (opcode != null && in1 != null && in2 != null && in3 != null) {
+                    uc.interpretadorPipeline(opcode, aux1, aux2, aux3, in4 ,aux4, aux5, aux6);
+                    in1 = null;
+                    in2 = null;
+                    in3 = null;
+                    in4 = null;
+                    in5 = null;
+                    in6 = null;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma entrada correta");
+                    textoEntrada.setText("");
+                }
             }
-
             if (j == 0) {
                 $zero = aux1;
-            }
-            else if (j == 1) {
+            } else if (j == 1) {
                 $at = aux1;
-            }
-            else if (j == 2) {
+            } else if (j == 2) {
                 $v0 = aux1;
-            }
-            else if (j == 3) {
+            } else if (j == 3) {
                 $v1 = aux1;
-            }
-            else if (j == 4) {
+            } else if (j == 4) {
                 $a0 = aux1;
-            }
-            else if (j == 5) {
+            } else if (j == 5) {
                 $a1 = aux1;
-            }
-            else if (j == 6) {
+            } else if (j == 6) {
                 $a2 = aux1;
-            }
-            else if (j == 7) {
+            } else if (j == 7) {
                 $a3 = aux1;
-            }
-            else if (j == 8) {
+            } else if (j == 8) {
                 $t0 = aux1;
-            }
-            else if (j == 9) {
+            } else if (j == 9) {
                 $t1 = aux1;
-            }
-            else if (j == 10) {
+            } else if (j == 10) {
                 $t2 = aux1;
-            }
-            else if (j == 11) {
+            } else if (j == 11) {
                 $t3 = aux1;
-            }
-            else if (j == 12) {
+            } else if (j == 12) {
                 $t4 = aux1;
-            }
-            else if (j == 13) {
+            } else if (j == 13) {
                 $t5 = aux1;
-            }
-            else if (j == 14) {
+            } else if (j == 14) {
                 $t6 = aux1;
-            }
-            else if (j == 15) {
+            } else if (j == 15) {
                 $t7 = aux1;
-            }
-            else if (j == 16) {
+            } else if (j == 16) {
                 $s0 = aux1;
-            }
-            else if (j == 17) {
+            } else if (j == 17) {
                 $s1 = aux1;
-            }
-            else if (j == 18) {
+            } else if (j == 18) {
                 $s2 = aux1;
-            }
-            else if (j == 19) {
+            } else if (j == 19) {
                 $s3 = aux1;
-            }
-            else if (j == 20) {
+            } else if (j == 20) {
                 $s4 = aux1;
-            }
-            else if (j == 21) {
+            } else if (j == 21) {
                 $s5 = aux1;
-            }
-            else if (j == 22) {
+            } else if (j == 22) {
                 $s6 = aux1;
-            }
-            else if (j == 23) {
+            } else if (j == 23) {
                 $s7 = aux1;
-            }
-            else if (j == 24) {
+            } else if (j == 24) {
                 $t8 = aux1;
-            }
-            else if (j == 25) {
+            } else if (j == 25) {
                 $t9 = aux1;
-            }
-            else if (j == 26) {
+            } else if (j == 26) {
                 $k0 = aux1;
-            }
-            else if (j == 27) {
+            } else if (j == 27) {
                 $k1 = aux1;
-            }
-            else if (j == 28) {
+            } else if (j == 28) {
                 $gp = aux1;
-            }
-            else if (j == 29) {
+            } else if (j == 29) {
                 $sp = aux1;
-            }
-            else if (j == 30) {
+            } else if (j == 30) {
                 $fp = aux1;
-            }
-            else if (j == 31) {
+            } else if (j == 31) {
                 $ra = aux1;
-            }
-
-            else if (k == 0) {
+            } else if (k == 0) {
                 $zero = aux2;
-            }
-            else if (k == 1) {
+            } else if (k == 1) {
                 $at = aux2;
-            }
-            else if (k == 2) {
+            } else if (k == 2) {
                 $v0 = aux2;
-            }
-            else if (k == 3) {
+            } else if (k == 3) {
                 $v1 = aux2;
-            }
-            else if (k == 4) {
+            } else if (k == 4) {
                 $a0 = aux2;
-            }
-            else if (k == 5) {
+            } else if (k == 5) {
                 $a1 = aux2;
-            }
-            else if (k == 6) {
+            } else if (k == 6) {
                 $a2 = aux2;
-            }
-            else if (k == 7) {
+            } else if (k == 7) {
                 $a3 = aux2;
-            }
-            else if (k == 8) {
+            } else if (k == 8) {
                 $t0 = aux2;
-            }
-            else if (k == 9) {
+            } else if (k == 9) {
                 $t1 = aux2;
-            }
-            else if (k == 10) {
+            } else if (k == 10) {
                 $t2 = aux2;
-            }
-            else if (k == 11) {
+            } else if (k == 11) {
                 $t3 = aux2;
-            }
-            else if (k == 12) {
+            } else if (k == 12) {
                 $t4 = aux2;
-            }
-            else if (k == 13) {
+            } else if (k == 13) {
                 $t5 = aux2;
-            }
-            else if (k == 14) {
+            } else if (k == 14) {
                 $t6 = aux2;
-            }
-            else if (k == 15) {
+            } else if (k == 15) {
                 $t7 = aux2;
-            }
-            else if (k == 16) {
+            } else if (k == 16) {
                 $s0 = aux2;
-            }
-            else if (k == 17) {
+            } else if (k == 17) {
                 $s1 = aux2;
-            }
-            else if (k == 18) {
+            } else if (k == 18) {
                 $s2 = aux2;
-            }
-            else if (k == 19) {
+            } else if (k == 19) {
                 $s3 = aux2;
-            }
-            else if (k == 20) {
+            } else if (k == 20) {
                 $s4 = aux2;
-            }
-            else if (k == 21) {
+            } else if (k == 21) {
                 $s5 = aux2;
-            }
-            else if (k == 22) {
+            } else if (k == 22) {
                 $s6 = aux2;
-            }
-            else if (k == 23) {
+            } else if (k == 23) {
                 $s7 = aux2;
-            }
-            else if (k == 24) {
+            } else if (k == 24) {
                 $t8 = aux2;
-            }
-            else if (k == 25) {
+            } else if (k == 25) {
                 $t9 = aux2;
-            }
-            else if (k == 26) {
+            } else if (k == 26) {
                 $k0 = aux2;
-            }
-            else if (k == 27) {
+            } else if (k == 27) {
                 $k1 = aux2;
-            }
-            else if (k == 28) {
+            } else if (k == 28) {
                 $gp = aux2;
-            }
-            else if (k == 29) {
+            } else if (k == 29) {
                 $sp = aux2;
-            }
-            else if (k == 30) {
+            } else if (k == 30) {
                 $fp = aux2;
-            }
-            else if (k == 31) {
+            } else if (k == 31) {
                 $ra = aux2;
-            }
-
-            else if (l == 0) {
+            } else if (l == 0) {
                 $zero = aux3;
-            }
-            else if (l == 1) {
+            } else if (l == 1) {
                 $at = aux3;
-            }
-            else if (l == 2) {
+            } else if (l == 2) {
                 $v0 = aux3;
-            }
-            else if (l == 3) {
+            } else if (l == 3) {
                 $v1 = aux3;
-            }
-            else if (l == 4) {
+            } else if (l == 4) {
                 $a0 = aux3;
-            }
-            else if (l == 5) {
+            } else if (l == 5) {
                 $a1 = aux3;
-            }
-            else if (l == 6) {
+            } else if (l == 6) {
                 $a2 = aux3;
-            }
-            else if (l == 7) {
+            } else if (l == 7) {
                 $a3 = aux3;
-            }
-            else if (l == 8) {
+            } else if (l == 8) {
                 $t0 = aux3;
-            }
-            else if (l == 9) {
+            } else if (l == 9) {
                 $t1 = aux3;
-            }
-            else if (l == 10) {
+            } else if (l == 10) {
                 $t2 = aux3;
-            }
-            else if (l == 11) {
+            } else if (l == 11) {
                 $t3 = aux3;
-            }
-            else if (l == 12) {
+            } else if (l == 12) {
                 $t4 = aux3;
-            }
-            else if (l == 13) {
+            } else if (l == 13) {
                 $t5 = aux3;
-            }
-            else if (l == 14) {
+            } else if (l == 14) {
                 $t6 = aux3;
-            }
-            else if (l == 15) {
+            } else if (l == 15) {
                 $t7 = aux3;
-            }
-            else if (l == 16) {
+            } else if (l == 16) {
                 $s0 = aux3;
-            }
-            else if (l == 17) {
+            } else if (l == 17) {
                 $s1 = aux3;
-            }
-            else if (l == 18) {
+            } else if (l == 18) {
                 $s2 = aux3;
-            }
-            else if (l == 19) {
+            } else if (l == 19) {
                 $s3 = aux3;
-            }
-            else if (l == 20) {
+            } else if (l == 20) {
                 $s4 = aux3;
-            }
-            else if (l == 21) {
+            } else if (l == 21) {
                 $s5 = aux3;
-            }
-            else if (l == 22) {
+            } else if (l == 22) {
                 $s6 = aux3;
-            }
-            else if (l == 23) {
+            } else if (l == 23) {
                 $s7 = aux3;
-            }
-            else if (l == 24) {
+            } else if (l == 24) {
                 $t8 = aux3;
-            }
-            else if (l == 25) {
+            } else if (l == 25) {
                 $t9 = aux3;
-            }
-            else if (l == 26) {
+            } else if (l == 26) {
                 $k0 = aux3;
-            }
-            else if (l == 27) {
+            } else if (l == 27) {
                 $k1 = aux3;
-            }
-            else if (l == 28) {
+            } else if (l == 28) {
                 $gp = aux3;
-            }
-            else if (l == 29) {
+            } else if (l == 29) {
                 $sp = aux3;
-            }
-            else if (l == 30) {
+            } else if (l == 30) {
                 $fp = aux3;
-            }
-            else if (l == 31) {
+            } else if (l == 31) {
                 $ra = aux3;
             }
             atualizarTela();
@@ -1636,6 +1622,10 @@ public class Tela extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_textoEntradaActionPerformed
+
+    private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
+        pipeline = checkBox.isSelected();
+    }//GEN-LAST:event_checkBoxActionPerformed
 
     public void atualizarTela() {
 
@@ -1720,6 +1710,7 @@ public class Tela extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Nm1;
     private javax.swing.JTextField ac;
+    private javax.swing.JCheckBox checkBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1740,6 +1731,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -1755,6 +1747,8 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField m0;
     private javax.swing.JTextField m1;
     private javax.swing.JTextField m10;
